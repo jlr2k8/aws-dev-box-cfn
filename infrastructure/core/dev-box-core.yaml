@@ -191,7 +191,7 @@ Resources:
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
     Properties:
-      ImageId: ami-06e75c920b3472f6f  # Windows Server 2022
+      ImageId: ami-07f134e32cbbbfc98  # Windows Server 2025
       InstanceType: !Ref InstanceType
       KeyName: !If [HasKeyPair, !Ref KeyPairName, !Ref "AWS::NoValue"]
       SecurityGroupIds:

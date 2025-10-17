@@ -8,7 +8,7 @@ The solution uses **three separate CloudFormation stacks** for better separation
 
 ### Core Infrastructure (`dev-box-core`)
 - **VPC** with public subnet and internet gateway
-- **EC2 Instance** running Windows Server 2022 with native RDP
+- **EC2 Instance** running Windows Server 2025 with native RDP
 - **Route 53 DNS** support for custom domain names
 - **Security Groups** configured for RDP access
 - **IAM Roles** for EC2 instance access
@@ -233,7 +233,7 @@ aws ec2 purchase-reserved-instances-offering \
 
 ## Pre-installed Software
 
-- **Windows Server 2022** with native RDP
+- **Windows Server 2025** with native RDP
 - **Docker Desktop** for containerization
 - **VS Code** for development
 - **Node.js** and npm
