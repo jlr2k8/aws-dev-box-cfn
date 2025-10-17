@@ -231,7 +231,40 @@ Resources:
           iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
           
           # Install development tools
-          choco install -y vscode nodejs docker-desktop python git
+          choco install -y vscode nodejs docker-desktop python git notepadplusplus
+          
+          # Clean up desktop - remove EC2 shortcuts
+          $desktopPath = [Environment]::GetFolderPath("Desktop")
+          $ec2Shortcuts = @("EC2 Feedback", "EC2 Microsoft Windows Guide")
+          foreach ($shortcut in $ec2Shortcuts) {
+              $shortcutPath = Join-Path $desktopPath "$shortcut.lnk"
+              if (Test-Path $shortcutPath) {
+                  Remove-Item $shortcutPath -Force
+                  Write-Host "Removed desktop shortcut: $shortcut"
+              }
+          }
+          
+          # Pin useful apps to taskbar
+          $taskbarApps = @(
+              "C:\Program Files\Microsoft VS Code\Code.exe",
+              "C:\Program Files\Notepad++\notepad++.exe"
+          )
+          
+          foreach ($app in $taskbarApps) {
+              if (Test-Path $app) {
+                  # Create shortcut in Start Menu for pinning
+                  $startMenuPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
+                  $appName = [System.IO.Path]::GetFileNameWithoutExtension($app)
+                  $shortcutPath = Join-Path $startMenuPath "$appName.lnk"
+                  
+                  $WshShell = New-Object -comObject WScript.Shell
+                  $Shortcut = $WshShell.CreateShortcut($shortcutPath)
+                  $Shortcut.TargetPath = $app
+                  $Shortcut.Save()
+                  
+                  Write-Host "Created shortcut for: $appName"
+              }
+          }
           
           # Configure RDP for better performance
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name 'MinEncryptionLevel' -Value 0

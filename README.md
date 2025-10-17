@@ -235,11 +235,13 @@ aws ec2 purchase-reserved-instances-offering \
 
 - **Windows Server 2025** with native RDP
 - **Docker Desktop** for containerization
-- **VS Code** for development
+- **VS Code** for development (pinned to taskbar)
 - **Node.js** and npm
 - **Python** with pip
 - **Git** for version control
+- **Notepad++** for advanced text editing (pinned to taskbar)
 - **Chocolatey** package manager
+- **Clean desktop** (EC2 shortcuts removed)
 
 ## Security Features
 
