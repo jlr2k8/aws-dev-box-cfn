@@ -1,0 +1,26 @@
+[
+  {
+    "ParameterKey": "Environment",
+    "ParameterValue": "staging"
+  },
+  {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t3.xlarge"
+  },
+  {
+    "ParameterKey": "KeyPairName",
+    "ParameterValue": "staging-key-pair"
+  },
+  {
+    "ParameterKey": "SecretsManagerSecretName",
+    "ParameterValue": "staging-dev-box-credentials"
+  },
+  {
+    "ParameterKey": "DomainName",
+    "ParameterValue": "staging.yourdomain.com"
+  },
+  {
+    "ParameterKey": "HostedZoneId",
+    "ParameterValue": "YOUR_HOSTED_ZONE_ID"
+  }
+]

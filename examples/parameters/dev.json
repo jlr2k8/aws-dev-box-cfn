@@ -1,0 +1,26 @@
+[
+  {
+    "ParameterKey": "Environment",
+    "ParameterValue": "dev"
+  },
+  {
+    "ParameterKey": "InstanceType",
+    "ParameterValue": "t3.large"
+  },
+  {
+    "ParameterKey": "KeyPairName",
+    "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "SecretsManagerSecretName",
+    "ParameterValue": "dev-box-credentials"
+  },
+  {
+    "ParameterKey": "DomainName",
+    "ParameterValue": "dev.yourdomain.com"
+  },
+  {
+    "ParameterKey": "HostedZoneId",
+    "ParameterValue": "YOUR_HOSTED_ZONE_ID"
+  }
+]

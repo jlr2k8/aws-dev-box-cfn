@@ -1,0 +1,28 @@
+# AWS Dev Box - Git Ignore
+
+# Parameters files with sensitive data
+parameters*.json
+
+# AWS CLI cache
+.aws/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
