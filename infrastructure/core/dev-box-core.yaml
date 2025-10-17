@@ -274,7 +274,9 @@ Resources:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\fDenyTSConnections' -Name 'fDenyTSConnections' -Value 0
           Enable-NetFirewallRule -DisplayGroup 'Remote Desktop'
           
-          Write-Host "Dev box setup completed successfully"
+          # Reboot to complete installations
+          Write-Host "Rebooting to complete software installations..."
+          Restart-Computer -Force
           </powershell>
       Tags:
         - Key: Name
