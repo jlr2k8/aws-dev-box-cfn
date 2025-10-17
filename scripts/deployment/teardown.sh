@@ -22,8 +22,8 @@ REGION=${AWS_DEFAULT_REGION:-us-west-2}
 
 # Safety confirmation prompts
 echo ""
-echo "⚠️  WARNING: This will PERMANENTLY DELETE your infrastructure!"
-echo "⚠️  This action CANNOT be undone!"
+echo "WARNING: This will PERMANENTLY DELETE your infrastructure!"
+echo "This action CANNOT be undone!"
 echo ""
 echo "Stack to delete: $STACK_NAME"
 echo "Region: $REGION"
@@ -32,27 +32,27 @@ echo ""
 # First confirmation
 read -p "Are you sure you want to delete $STACK_NAME? Type 'yes' to continue: " confirm1
 if [ "$confirm1" != "yes" ]; then
-    echo "❌ Teardown cancelled."
+    echo "Teardown cancelled."
     exit 1
 fi
 
 # Second confirmation with stack details
 echo ""
-echo "🔍 Checking stack details..."
+echo "Checking stack details..."
 aws cloudformation describe-stacks --stack-name "$STACK_NAME" --region "$REGION" --query 'Stacks[0].{Name:StackName,Status:StackStatus,CreationTime:CreationTime}' --output table 2>/dev/null || {
-    echo "❌ Stack $STACK_NAME not found or not accessible."
+    echo "Stack $STACK_NAME not found or not accessible."
     exit 1
 }
 
 echo ""
-read -p "⚠️  FINAL WARNING: This will destroy ALL resources in $STACK_NAME. Type 'DELETE' to confirm: " confirm2
+read -p "FINAL WARNING: This will destroy ALL resources in $STACK_NAME. Type 'DELETE' to confirm: " confirm2
 if [ "$confirm2" != "DELETE" ]; then
-    echo "❌ Teardown cancelled."
+    echo "Teardown cancelled."
     exit 1
 fi
 
 echo ""
-echo "🚨 Proceeding with teardown in 5 seconds..."
+echo "Proceeding with teardown in 5 seconds..."
 echo "   Press Ctrl+C to cancel"
 sleep 5
 
