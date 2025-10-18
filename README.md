@@ -37,7 +37,7 @@ The solution uses **three separate CloudFormation stacks** for better separation
 ### 2. Clone and Setup
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/jlr2k8/aws-dev-box-cfn
 cd aws-dev-box-cfn
 ```
 
@@ -235,13 +235,12 @@ aws ec2 purchase-reserved-instances-offering \
 
 - **Windows Server 2025** with native RDP
 - **Docker Desktop** for containerization
-- **VS Code** for development (pinned to taskbar)
+- **VS Code** for development
 - **Node.js** and npm
 - **Python** with pip
 - **Git** for version control
-- **Notepad++** for advanced text editing (pinned to taskbar)
+- **Notepad++** for advanced text editing
 - **Chocolatey** package manager
-- **Clean desktop** (EC2 shortcuts removed)
 
 ## Security Features
 
@@ -252,7 +251,7 @@ aws ec2 purchase-reserved-instances-offering \
 - **AWS Backup** for data protection
 - **Secrets Manager** for credential management
 
-## Bulletproofing Features (Production-Grade)
+## Bulletproofing Features
 
 ### Resource Protection
 - **DeletionPolicy: Retain** on all critical resources (EC2, VPC, networking)
