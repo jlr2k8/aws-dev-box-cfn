@@ -31,6 +31,16 @@ Parameters:
     Type: String
     Default: YOUR_HOSTED_ZONE_ID
     Description: Route 53 Hosted Zone ID
+  
+  Timezone:
+    Type: String
+    Default: "Pacific Standard Time"
+    AllowedValues:
+      - "Pacific Standard Time"
+      - "Central Standard Time"
+      - "US Mountain Standard Time"
+      - "Eastern Standard Time"
+    Description: Windows timezone for the dev box
 
 Conditions:
   HasDomain: !Not [!Equals [!Ref DomainName, '']]
@@ -203,6 +213,10 @@ Resources:
           <powershell>
           # Set execution policy
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force
+          
+          # Set timezone
+          Set-TimeZone -Id "${Timezone}"
+          Write-Host "Set timezone to: ${Timezone}"
           
           # Get credentials from Secrets Manager
           $secret = Get-SECSecretValue -SecretId ${SecretsManagerSecretName} -Region ${AWS::Region}
