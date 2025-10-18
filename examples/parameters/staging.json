@@ -22,5 +22,9 @@
   {
     "ParameterKey": "HostedZoneId",
     "ParameterValue": "YOUR_HOSTED_ZONE_ID"
+  },
+  {
+    "ParameterKey": "Timezone",
+    "ParameterValue": "Eastern Standard Time"
   }
 ]

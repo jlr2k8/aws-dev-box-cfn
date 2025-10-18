@@ -80,6 +80,10 @@ Edit the parameter files with your values:
   {
     "ParameterKey": "HostedZoneId",
     "ParameterValue": "YOUR_HOSTED_ZONE_ID"
+  },
+  {
+    "ParameterKey": "Timezone",
+    "ParameterValue": "Pacific Standard Time"
   }
 ]
 ```
@@ -222,6 +226,7 @@ aws ec2 purchase-reserved-instances-offering \
 | SecretsManagerSecretName | Secret name for credentials | dev-box-credentials | No |
 | DomainName | Custom domain name | dev.yourdomain.com | No |
 | HostedZoneId | Route 53 hosted zone ID | YOUR_HOSTED_ZONE_ID | No |
+| Timezone | Windows timezone (Pacific, Central, US Mountain, Eastern) | Pacific Standard Time | No |
 
 ### Backup Stack Parameters
 
