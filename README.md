@@ -63,7 +63,7 @@ Edit the parameter files with your values:
   },
   {
     "ParameterKey": "InstanceType", 
-    "ParameterValue": "t3.large"
+    "ParameterValue": "t3.xlarge"
   },
   {
     "ParameterKey": "KeyPairName",
@@ -190,7 +190,7 @@ Save ~33% on monthly costs with a 3-year Reserved Instance:
 ```bash
 # Check available Reserved Instance offerings
 aws ec2 describe-reserved-instances-offerings \
-  --instance-type t3.large \
+  --instance-type t3.xlarge \
   --product-description "Windows" \
   --offering-type "No Upfront" \
   --max-duration 94608000
@@ -202,8 +202,8 @@ aws ec2 purchase-reserved-instances-offering \
 ```
 
 **Monthly costs:**
-- **On-Demand:** ~$70/month
-- **3-Year Reserved:** ~$46/month (33% savings)
+- **On-Demand:** ~$120/month
+- **3-Year Reserved:** ~$80/month (33% savings)
 
 ### Instance Types
 
@@ -211,8 +211,8 @@ aws ec2 purchase-reserved-instances-offering \
 |------|-------|--------|----------|--------------|
 | t3.small | 2 | 2 GB | Light development | ~$15 |
 | t3.medium | 2 | 4 GB | Standard development | ~$30 |
-| t3.large | 2 | 8 GB | Heavy development | ~$60 |
-| t3.xlarge | 4 | 16 GB | Multi-user development | ~$120 |
+| t3.xlarge | 4 | 16 GB | Heavy development (with virtualization) | ~$120 |
+| m5.large | 2 | 8 GB | Standard development | ~$69 |
 
 ## Configuration Options
 
@@ -221,7 +221,7 @@ aws ec2 purchase-reserved-instances-offering \
 | Parameter | Description | Default | Required |
 |-----------|-------------|---------|----------|
 | Environment | Environment name | dev | No |
-| InstanceType | EC2 instance type | t3.large | No |
+| InstanceType | EC2 instance type | t3.xlarge | No |
 | KeyPairName | EC2 Key Pair name | - | Yes |
 | SecretsManagerSecretName | Secret name for credentials | dev-box-credentials | No |
 | DomainName | Custom domain name | dev.yourdomain.com | No |

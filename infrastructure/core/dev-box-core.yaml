@@ -9,7 +9,7 @@ Parameters:
   
   InstanceType:
     Type: String
-    Default: t3.large
+    Default: t3.xlarge
     Description: EC2 instance type
   
   KeyPairName:
