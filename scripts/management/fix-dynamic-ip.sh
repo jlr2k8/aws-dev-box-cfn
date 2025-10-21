@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Fix dynamic IP issue for dev box - all-in-one solution
+# Fix dynamic IP issue for dev box
 # Usage: ./fix-dynamic-ip.sh [INSTANCE_ID]
 
 INSTANCE_ID=${1:-""}
@@ -32,10 +32,10 @@ log_health() {
 
 # Function to get current public IP
 get_current_ip() {
-    log_info "Detecting your current public IP..."
+    log_info "Detecting your current public IP..." >&2
     local ip=$(curl -s https://checkip.amazonaws.com/ 2>/dev/null || curl -s https://ipinfo.io/ip 2>/dev/null || echo "unknown")
     if [ "$ip" = "unknown" ]; then
-        log_error "Could not determine your public IP"
+        log_error "Could not determine your public IP" >&2
         return 1
     fi
     echo "$ip"
@@ -48,7 +48,7 @@ get_instance_id() {
         return
     fi
     
-    log_info "Looking for dev box instance..."
+    log_info "Looking for dev box instance..." >&2
     
     # Try to get from CloudFormation stack
     local cf_instance_id=$(aws cloudformation describe-stack-resources \
@@ -123,18 +123,32 @@ update_security_group() {
     
     # Remove old specific IP rules (keep 0.0.0.0/0 rules)
     log_info "Cleaning up old IP-specific rules..."
-    aws ec2 describe-security-groups \
+    
+    # Get current security group rules
+    local sg_rules=$(aws ec2 describe-security-groups \
         --group-ids "$sg_id" \
         --region "$REGION" \
         --query 'SecurityGroups[0].IpPermissions' \
-        --output json 2>/dev/null | jq -r '.[] | select(.IpRanges[].CidrIp != "0.0.0.0/0") | .' | while read -r rule; do
-        if [ -n "$rule" ] && [ "$rule" != "null" ]; then
-            aws ec2 revoke-security-group-ingress \
-                --group-id "$sg_id" \
-                --ip-permissions "$rule" \
-                --region "$REGION" 2>/dev/null || true
-        fi
-    done
+        --output json 2>/dev/null)
+    
+    if [ -n "$sg_rules" ] && [ "$sg_rules" != "null" ]; then
+        # Extract and remove rules that are not 0.0.0.0/0
+        echo "$sg_rules" | jq -r '.[] | select(.IpRanges[]? | .CidrIp != "0.0.0.0/0") | @json' | while IFS= read -r rule; do
+            if [ -n "$rule" ] && [ "$rule" != "null" ]; then
+                # Extract the CIDR for logging
+                local cidr=$(echo "$rule" | jq -r '.IpRanges[0].CidrIp // "unknown"' 2>/dev/null)
+                log_info "Removing old rule for IP: $cidr"
+                
+                # Remove the rule
+                aws ec2 revoke-security-group-ingress \
+                    --group-id "$sg_id" \
+                    --ip-permissions "$rule" \
+                    --region "$REGION" 2>/dev/null || log_info "Rule may have already been removed"
+            fi
+        done
+    else
+        log_info "No security group rules found"
+    fi
     
     # Add new rule for current IP
     log_info "Adding rule for current IP: $current_ip/32"
